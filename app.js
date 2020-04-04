@@ -17,7 +17,8 @@ const connection = mysql.createConnection({
   server : 'mysql669.umbler.com',
   user     : 'sql-pb-admin',
   password : 'personalbeauty',
-  database : 'PERSONAL_BEAUTY'
+  database : 'PERSONAL_BEAUTY',
+  multipleStatements: true
 });
 
 connection.connect(function(err){
