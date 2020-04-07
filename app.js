@@ -1,6 +1,5 @@
 //Importando o express
 const express = require('express');
-const mysql      = require('mysql');
 const bodyParser = require('body-parser');
 
 //Criando uma instancia do express para app
@@ -12,19 +11,6 @@ const app = express();
 //Buscando o arquivo de rotas
 const rotaProdutos = require('./routes/produtos');
 const rotaPedidos = require('./routes/pedidos');
-
-const connection = mysql.createConnection({
-  server : 'mysql669.umbler.com',
-  user     : 'sql-pb-admin',
-  password : 'personalbeauty',
-  database : 'PERSONAL_BEAUTY',
-  multipleStatements: true
-});
-
-connection.connect(function(err){
-  if(err) return console.log(err);
-  console.log('conectou!');
-})
 
 //Aceita apenas dados simples no body
 app.use(bodyParser.urlencoded({ extended: false }));
