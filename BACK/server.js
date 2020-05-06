@@ -17,7 +17,7 @@ server.listen(port);
 console.log('API Rodando! Porta:', port);
 
 
-///Funcionamento da porra toda
+///Funcionamento
 
 //1 - Primeiro ele cria um serviço de HTTP(Para rodarmos a API)
 //2 - Depois ele busca o arquivo app e lá passamos um conteúdo para o serviço
