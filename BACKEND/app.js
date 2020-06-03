@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //Buscando o arquivo de rotas
+const rotaAdmin = require('./routes/admin')
 const rotaCliente = require('./routes/cliente');
 const rotaFuncionario = require('./routes/funcionario');
 
@@ -32,6 +33,7 @@ app.use((req, res, next) => {
     next();
 })
 
+app.use('/admin', rotaAdmin);
 app.use('/cliente', rotaCliente);
 app.use('/funcionario', rotaFuncionario);
 

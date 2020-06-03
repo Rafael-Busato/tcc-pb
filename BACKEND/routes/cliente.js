@@ -23,7 +23,7 @@ router.get('/', (req, res, next) => {
 });
 
 //RETORNA UM CLIENTE ESPECÍFICO
-router.get('/:cpf', (req, res, next) => {
+router.get('/:email/:senha', (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if (error) {
             return res.status(500).send({
@@ -33,11 +33,11 @@ router.get('/:cpf', (req, res, next) => {
         }
     
         conn.query(
-            'SELECT * FROM personal_beauty.cliente WHERE CPF = ?;',
-            [req.params.cpf],
+            'SELECT * FROM personal_beauty.cliente WHERE EMAIL = ? AND SENHA = ?;',
+            [req.params.email, req.params.senha],
             (error, resultado, fields) => {
                 if (error) {return res.status(500).send({ error: error }) }
-                return res.status(200).send({response: resultado})
+                return res.status(200).send({ response: resultado })
             }
         )
     });
@@ -60,8 +60,12 @@ router.post('/', (req, res, next) => {
             (error, resultado, fields) => {
                 conn.release();
 
-                if (error) {return res.status(500).send({ error: error }) }
-                return res.status(201).send({response: 'Cliente cadastrado com sucesso.'})
+                if (error) {return res.status(500).send({ 
+                    status: 500,
+                    error: error }) }
+                return res.status(201).send({ 
+                    status: 201,
+                    response: 'Cadastrado realizado com sucesso.'})
             }
         )
     });
