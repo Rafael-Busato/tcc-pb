@@ -1,4 +1,4 @@
-import React, { Component, useState, useCallback } from 'react';
+import React, { Component, useEffect, useState, useCallback } from 'react';
 
 import {
   View,
@@ -10,45 +10,61 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
+import { setDetectionImagesAsync } from 'expo/build/AR';
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
   const login = async () => {
+
     if (email == "") {
       Alert.alert('Preencha o campo Email!');
 
     } else if (senha == "") {
       Alert.alert('Preencha o campo Senha!');
 
-    } else if (email == "admin" && senha == "admin") {
+    } else if (email == "Admin" && senha == "Admin" || 
+               email == "admin" && senha == "admin") {
       navigation.navigate('Admin');
 
     } else {
       const options = {
         method: 'GET',
         mode: 'CORS',
-        cache: 'false'
-      }
+        cache: 'default',
+        headers: {'Accept': 'application/json',
+        'Content-Type': 'application/json'}
+      }    
 
-      await fetch(`http://172.20.10.2:3000/cliente/${email}/${senha}`, options)
-        .then(async response => {
-          const data = await response.json();
+      await fetch(`http://192.168.0.110:3000/cliente/${email}/${senha}`, options)
+      .then( async res => {
+        const data = await res.json();
 
-          if (data.response == "") {
-            Alert.alert('Email ou Senha incorretos!');
-          } else {
-            Alert.alert('Seja Bem-Vindo!');
-          }
+        let datasource = {};
 
-        })
+        for (const element of data.dados) {
+          datasource[element[0]] = element[1];
+          console.log(element.cpf);
+        }        
 
+        if (data.response == "") {
+          Alert.alert('Email ou Senha incorretos!');
+        } else {
+          Alert.alert('Seja Bem-Vindo!');
+        }
+
+      })
     }
   }
 
   return (
     <KeyboardAvoidingView style={styles.background}>
+        <View style={styles.containerLogo}>
+          <Image
+            source={require('../../assets/Logo.png')}
+          />
+        </View>
 
       <View style={styles.container}>
         <TextInput
@@ -75,7 +91,6 @@ export default function Login({ navigation }) {
           <Text style={styles.criarcontaText}>Criar Conta gratuita</Text>
         </TouchableOpacity>
       </View>
-
     </KeyboardAvoidingView>
   );
 };
@@ -96,7 +111,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '90%',
-    paddingBottom: 50,
+    paddingBottom: 10,
   },
   input: {
     backgroundColor: '#FFF',

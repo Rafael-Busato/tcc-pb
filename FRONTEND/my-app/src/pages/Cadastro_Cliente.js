@@ -59,6 +59,7 @@ export default function Cadastro_Client() {
       }).then(response => {
         if (response.status == 201) {
           Alert.alert('Cadastro realizado com sucesso!');
+          navigation.navigate('Login');
 
         } else if (response.status == 500) {
           Alert.alert('Cliente já cadastrado!');
@@ -115,14 +116,6 @@ export default function Cadastro_Client() {
               keyboardType='numeric'
               autoCorrect={false}
               onChangeText={(val) => setDtNasc(val)}
-            />
-
-            <TextInput
-              style={styles.input}
-              placeholder="N° Cartão de Crédito"
-              keyboardType='numeric'
-              autoCorrect={false}
-              onChangeText={(val) => setCartaoCred(val)}
             />
 
             <TextInput

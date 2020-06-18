@@ -54,10 +54,6 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 18,
   },
-  personalText: {
-    color: '#FFF',
-    fontSize: 18,
-  },
   btnPersonal: {
     marginTop: 10,
     backgroundColor: '#35AAFF',
@@ -67,7 +63,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 7,
   },
-  funcionarioText: {
+  personalText: {
+    color: '#FFF',
     fontSize: 18,
   }
+
 });
